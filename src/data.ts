@@ -1,4 +1,4 @@
-import type { Announcement, Resource, Settings, Teacher } from './types';
+import type { Announcement, Domain, Resource, Settings, Teacher, Unit } from './types';
 
 export const branches: Record<number, string[]> = {
   1: ['جذع مشترك علوم وتكنولوجيا', 'جذع مشترك آداب'],
@@ -25,4 +25,18 @@ export const demoTeachers: Teacher[] = [
   { id:'1', name:'الأستاذ محمد', email:'admin@example.com', role:'admin', active:true },
   { id:'2', name:'الأستاذة أمينة', email:'teacher@example.com', role:'teacher', active:true }
 ];
+
+export const demoDomains: Domain[] = [
+  { id:'domain-web', name:webDomain, year:1, branch:'جذع مشترك علوم وتكنولوجيا', term:1 },
+  { id:'domain-algo', name:'المجال التعلمي I : الخوارزميات والبرمجة', year:1, branch:'جذع مشترك علوم وتكنولوجيا', term:1 }
+];
+
+export const demoUnits: Unit[] = [
+  { id:'unit-browser', domainId:'domain-web', name:'المتصفح' },
+  { id:'unit-html', domainId:'domain-web', name:'إنشاء صفحة ويب' },
+  { id:'unit-communication', domainId:'domain-web', name:'استغلال أدوات التواصل' },
+  { id:'unit-email', domainId:'domain-web', name:'البريد الإلكتروني' },
+  { id:'unit-algo', domainId:'domain-algo', name:'مبادئ الخوارزميات' }
+];
+
 export const defaultSettings: Settings = { platformName:'منصة مادة المعلوماتية', teacherName:'الأستاذ محمد', logo:'💻', email:'teacher@example.com', phone:'0550 00 00 00' };

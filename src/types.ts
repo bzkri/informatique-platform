@@ -34,5 +34,7 @@ export interface Announcement {
   teacher: string;
 }
 
+export interface Domain { id: string; name: string; year: number; branch: string; term: number; teacherId?: string; }
+export interface Unit { id: string; domainId: string; name: string; teacherId?: string; }
 export interface Teacher { id: string; name: string; email: string; role: 'admin' | 'teacher'; active: boolean; }
 export interface Settings { platformName: string; teacherName: string; logo: string; email: string; phone: string; }
