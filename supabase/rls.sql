@@ -1,0 +1,13 @@
+alter table profiles enable row level security; alter table settings enable row level security; alter table domains enable row level security; alter table units enable row level security; alter table resources enable row level security;
+create or replace function public.is_admin() returns boolean language sql stable security definer set search_path=public as $$ select exists(select 1 from profiles where id=auth.uid() and role='admin' and active); $$;
+create policy "قراءة الملفات الشخصية للمسجلين" on profiles for select to authenticated using(true);
+create policy "الأدمن يدير الأساتذة" on profiles for all to authenticated using(is_admin()) with check(is_admin());
+create policy "الإعدادات عامة" on settings for select using(true);
+create policy "الأدمن يدير الإعدادات" on settings for all to authenticated using(is_admin()) with check(is_admin());
+create policy "المجالات عامة" on domains for select using(true); create policy "الأساتذة يديرون مجالاتهم" on domains for all to authenticated using(teacher_id=auth.uid() or is_admin()) with check(teacher_id=auth.uid() or is_admin());
+create policy "الوحدات عامة" on units for select using(true); create policy "الأساتذة يديرون وحداتهم" on units for all to authenticated using(teacher_id=auth.uid() or is_admin()) with check(teacher_id=auth.uid() or is_admin());
+create policy "الموارد المنشورة عامة" on resources for select using(published or teacher_id=auth.uid() or is_admin()); create policy "الأساتذة يديرون مواردهم" on resources for all to authenticated using(teacher_id=auth.uid() or is_admin()) with check(teacher_id=auth.uid() or is_admin());
+create policy "تنزيل الموارد عام" on storage.objects for select using(bucket_id='resources');
+create policy "رفع الأساتذة" on storage.objects for insert to authenticated with check(bucket_id='resources' and exists(select 1 from profiles where id=auth.uid() and active));
+create policy "تعديل ملفات المالك" on storage.objects for update to authenticated using(bucket_id='resources' and (owner_id=auth.uid()::text or is_admin()));
+create policy "حذف ملفات المالك" on storage.objects for delete to authenticated using(bucket_id='resources' and (owner_id=auth.uid()::text or is_admin()));
