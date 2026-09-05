@@ -21,7 +21,7 @@ function App() {
   const [units,setUnits] = useState<Unit[]>(demoUnits);
   const [settings,setSettings] = useState<Settings>(defaultSettings);
   const [year,setYear] = useState(1), [branch,setBranch] = useState(branches[1][0]), [term,setTerm] = useState(1), [query,setQuery] = useState('');
-  const [admin,setAdmin] = useState(false), [logged,setLogged] = useState(false), [login,setLogin] = useState({email:'admin@example.com',password:'demo123'}), [tab,setTab] = useState('content'), [menu,setMenu] = useState(false);
+  const [admin,setAdmin] = useState(false), [logged,setLogged] = useState(false), [login,setLogin] = useState({email:'',password:''}), [tab,setTab] = useState('content'), [menu,setMenu] = useState(false);
   const [editingLesson,setEditingLesson] = useState<Resource|null>(null), [editingAnnouncement,setEditingAnnouncement] = useState<Announcement|null>(null), [editingDomain,setEditingDomain] = useState<Domain|null>(null), [creatingDomain,setCreatingDomain] = useState(false), [teacherFormOpen,setTeacherFormOpen] = useState(false), [editingUnit,setEditingUnit] = useState<{domain:Domain;unit?:Unit}|null>(null), [passwordTeacher,setPasswordTeacher] = useState<Teacher|null>(null), [toasts,setToasts] = useState<Toast[]>([]), [confirmState,setConfirmState] = useState<ConfirmState>(null);
 
   useEffect(() => {
